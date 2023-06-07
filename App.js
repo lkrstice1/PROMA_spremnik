@@ -6,6 +6,9 @@ import { MaterialIcons } from '@expo/vector-icons';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 
+import { createStore, combineReducers } from 'redux'
+import radReducer from './store/reducers/radovi';
+
 import PocetniEkran from './screens/PocetniEkran';
 import PopisEkran from './screens/PopisEkran';
 import DetaljiEkran from './screens/DetaljiEkran';
@@ -14,6 +17,7 @@ import Boje from './constants/Boje';
 const Stack = createNativeStackNavigator();
 
 import { RADOVI } from './data/test-podaci';
+import { Provider } from 'react-native-paper';
 
 const ucitajFontove = () => {
   return Font.loadAsync({
@@ -21,6 +25,12 @@ const ucitajFontove = () => {
     "Corinthia": require('./assets/Corinthia-Regular.ttf'),
   })
 };
+
+const glavniReducer = combineReducers({
+  radovi: radReducer
+})
+
+const store = createStore(glavniReducer)
 
 function App() {
   const [fontUcitan, ucitano] = useState(false);
@@ -35,6 +45,7 @@ function App() {
     );
   }
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
@@ -99,6 +110,7 @@ function App() {
         <Stack.Screen name="Unos" component={UnosEkran} />
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
 export default App;

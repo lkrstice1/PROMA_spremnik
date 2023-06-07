@@ -1,12 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Boje from '../constants/Boje';
+import { useSelector } from 'react-redux';
 
 import { RADOVI } from '../data/test-podaci';
 
 const DetaljiEkran = ({ route, navigation }) => {
+  const sviRadovi = useSelector(state => state.radovi.radovi)
   const idOsobe = Number(route.params.id);
-  const rad = RADOVI.find((r) => r.id === idOsobe);
+  const rad = sviRadovi.find((r) => r.id === idOsobe);
   return (
     <View style={stil.ekran}>
       <View style={stil.tablica}>
