@@ -1,17 +1,13 @@
-import * as React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import Boje from '../constants/Boje';
 import ListaElement from '../components/ListaElement';
 import { RADOVI } from '../data/test-podaci';
 
 const PopisEkran = ({ route, navigation }) => {
+  const radoviPrikaz = useSelector(state => state.radovi.filterRadovi)
   const prikazElelementa = (podaci) => {
     return (
       <ListaElement
@@ -26,7 +22,7 @@ const PopisEkran = ({ route, navigation }) => {
         <FlatList
           showsVerticalScrollIndicator={false}
           style={{ margin: 5 }}
-          data={RADOVI}
+          data={radoviPrikaz}
           renderItem={prikazElelementa}
           numColumns={1}
         />
